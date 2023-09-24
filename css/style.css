@@ -1,0 +1,318 @@
+@font-face {
+    font-family: 'Inter'; /* Nome da fonte */
+    src: url('../fonts/static/Inter-Light.ttf') format('woff2'); /* Caminho relativo para a fonte */
+    /* Outras propriedades opcionais, como font-weight e font-style, podem ser definidas aqui */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    background-color: #3C495C;
+}
+
+#sidebar-left {
+    position: fixed;
+    width: 250px;
+    height: 100%;
+    background-color: #252E3A;
+    /* background: linear-gradient(118deg, #354671 0.69%, #1D1437 0.7%, #121E30 50.12%, #0A252C 100%); */
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #29203b;
+}
+
+#user-section {
+    font-size: 1rem;
+    color: #ddd;
+    letter-spacing: 1px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+#user-profile-picture {
+    background-color: #ddd;
+    background-image: url('../images/icons8-user-icon-100.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+#menu-label {
+    width: 70%;
+    font-size: 0.9rem;
+    margin-left: 35px;
+    margin-top: 60px;
+    padding-bottom: 10px;
+    color: #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+#menu {
+    margin-top: 0.5rem;
+    width: 100%;
+    align-self: flex-start;
+    padding: 20px 0 20px 0px;
+}
+
+#menu ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 5px;
+}
+
+#menu ul li {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* padding: 5px 0 5px 20px; */
+    transition: all 0.3s ease;
+    /* background-color: #523F38; */
+    /* border-top: 2px solid #000; */
+}
+
+#menu ul li img {
+    color: #ddd;
+    width: 20px;
+}
+
+
+#menu ul li a {
+    font-weight: 400;
+    color: #ddd;
+    width: 100%;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    padding: 5px 0 10px 35px;
+    gap: 15px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+#menu ul li:nth-child(4){
+    margin-bottom: 80px;
+}
+
+#menu ul li a:hover {
+    background-color: #22222246;
+}
+
+#ingredients-ul, #recipes-ul {
+    margin-left: 50px;
+    list-style: armenian;
+}
+
+#sidebar-right {
+    position: fixed;
+    right: 0;
+    display: flex;
+    width: 250px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #252E3A;
+    border-left: 1px solid #000;
+}
+
+#main-section {
+    position: fixed;
+    width: 860px;
+    height: 100%;
+    left: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+#search-section {
+    margin-top: 25px;
+    margin-left: 25px;
+    height: 50px;
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#main-section-label {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #e9e9e9;
+    gap: 10px;
+}
+#main-section-label img {
+    width: 40px;
+}
+#main-section-label h1 {
+    font-size: 1.3rem;
+    font-weight: 300;
+}
+
+#search-bar-content {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-right: 15px;
+    width: 600px;
+}
+
+#search-bar {
+    display: flex;
+    width: 500px;
+    height: 50px;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 10px 0 10px;
+    gap: 5px;
+    border-radius: 15px;
+    background-color: #e9e9e9;
+}
+#search-section div input {
+    width: 80%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
+#search-filter {
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 50px;
+    padding: 0 15px 0 15px;
+    border-radius: 15px;
+    color: #222;
+    background-color: #e9e9e9;
+}
+
+#search-edit {
+    width: 60px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px 0 10px;
+    border-radius: 15px;
+    background-color: #e9e9e9;
+}
+
+#search-edit img {
+    width: 30px;
+}
+
+.cards-section-label {
+    color: #ddd;
+    /* font-weight: 500; */
+    width: 90%;
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    margin: 15px 0 15px 40px;
+    gap: 10px;
+    border-bottom: 2px solid #d1d1d1;
+}
+.cards-section-label img {
+    width: 20px;
+}
+
+.cards-section {
+    background-color: #35415296;
+    width: 100%;
+    /* height: fit-content; */
+    /* background-color: transparent; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 10px;
+    transition: all 0.3 step-end;
+}
+
+.card {
+    position: relative;
+    border-radius: 15px;
+    border: 1px solid #222;
+    width: 180px;
+    height: 280px;
+    background-color: #e9e9e9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 5px;
+    user-select: none;
+    transition: all 0.3 ease;
+}
+.card-quantity {
+    position: absolute;
+    margin-top: 190px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.card:hover {
+    background-color: #ddd;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    width: 30px;
+}
+.card h1 {
+    font-size: 1rem;
+}
+.card-description {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.8rem;
+}
+.card a {
+    position: absolute;
+    margin-top: 220px;
+    font-weight: 600;
+    color: #5c5c5c;
+    font-size: 0.7rem;
+}
+
+#sidebar-right-content {
+    width: 85%;
+    height: 95%;
+    background-color: #e9e9e9;
+    border-radius: 10px;
+    align-self: center;
+}
+
+.fade-in {
+    animation: fade-in 1s ease;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
