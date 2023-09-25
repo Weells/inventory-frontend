@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/card-style.css">
+    <link rel="stylesheet" href="./css/card-info.css">
 </head>
 <body>
     <aside id="sidebar-left">
@@ -45,7 +47,7 @@
                     <input type="text" name="" id="search-input" placeholder="O que está procurando?">
                 </div>
                 <a href="#" id="search-filter" onclick="getIngredientById()">Filtros</a>
-                <a href="#" id="search-edit"><img src="./images/icons8-edit-64.png" alt=""></a>
+                <a href="#" id="search-edit"><img src="./images/icons8-edit-64.png" alt="" onclick="getRecipes()"></a>
             </div>
 
         </div>
@@ -62,33 +64,60 @@
                 <!-- <img src="./images/ellipsis-vertical-solid.svg" width="15" height="15" alt="" class="card-config"> -->
                 <img src="./images/paper-icon.png" alt="">
                 <h1>Papel</h1>
-                <p class="card-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
+                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
                 <a href="#">Ler mais</a>
             </div>
-            <!-- <div class="card">
-                <img src="./images/icons8-salad-50.png" alt="">
+            <div class="card">
+                <img src="./images/salad-icon.png" alt="">
                 <h1>Salada</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
+                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
                 <a href="#">Ler mais</a>
             </div>
             <div class="card">
-                <img src="./images/icons8-coffee-50.png" alt="">
+                <img src="./images/cup-icon.png" alt="">
                 <h1>Caneca</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
+                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
                 <a href="#">Ler mais</a>
             </div>
             <div class="card">
-                <img src="./images/icons8-plastic-50.png" alt="">
+                <img src="./images/plastic-icon.png" alt="">
                 <h1 class="card-name">Garrafa</h1>
-                <p class="card-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
+                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
                 <a href="#">Ler mais</a>
-            </div> -->
+            </div>
         </div>
     </section>
     
 
     <aside id="sidebar-right">
-        <div id="sidebar-right-content"></div>
+        <div id="sidebar-right-content">
+            <div class="card-info">
+                <img src="./images/bag-icon.png" alt="">
+                <h1>Sacola de presentes</h1>
+                <p class="card-info-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
+                <p class="card-info-quantity">Qtd: 5</p>
+            </div>
+
+            <div class="card-info-ingredients">
+                <h2 class="card-info-ingredients-label">Ingredientes:</h2>
+                <li class="ingredients-list">
+                    <ul>
+                        <h3>Papel</h3>
+                        <p>Quantidade: 5</p>
+                    </ul>
+                    <ul>
+                        <h3>Plástico</h3>
+                        <p>Quantidade: 10</p>
+                    </ul>
+                    <!-- <ul>
+                        <h3>Plástico</h3>
+                        <p>Quantidade: 10</p>
+                    </ul> -->
+                </li>
+            </div>
+
+
+        </div>
     </aside>
 
     <footer>Bruno "Weells", 2023.</footer>

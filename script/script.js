@@ -38,35 +38,12 @@ function getRecipes() {
 
 function getIngredientById() {
     let id = inputContent.value;
-    fetch("http://localhost:8080/ingredients/" + id)
+    fetch("http://localhost:8080/recipes/" + id)
         .then(response => response.json())
         .then(json => {
             createCard(json);
         })
 }
-
-// function createCard(data) {
-//     const cardsSection = document.querySelector('.cards-section');
-
-//     const newCard = document.createElement('div');
-//     newCard.className = 'card';
-//     newCard.id = data.id;
-//     newCard.classList.add('fade-in');
-
-//     newCard.innerHTML = `
-//         <div class="menu">
-//             <span class="bar"></span>
-//             <span class="bar"></span>
-//             <span class="bar"></span>
-//         </div>
-//         <img src="./images/${data.icon}-icon.png">
-//         <h1>${data.ingredientName}</h1>
-//         <p class="card-description">${data.description}</p>
-//         <p class="card-quantity">Qtd: ${data.quantity}</p>
-//         <a href="#">Ler mais</a>`;
-
-//     cardsSection.appendChild(newCard);
-// }
 
 function createCard(data) {
     const cardsSection = document.querySelector('.cards-section');
@@ -91,7 +68,7 @@ function createCard(data) {
         </div>
         <img src="./images/${data.icon}-icon.png">
         <h1>${objectName}</h1>
-        <p class="card-description">${data.description}</p>
+        <p class="card-description overflow">${data.description}</p>
         <p class="card-quantity">Qtd: ${data.quantity}</p>
         <a href="#">Ler mais</a>`;
     
