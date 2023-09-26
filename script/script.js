@@ -36,13 +36,15 @@ function getRecipes() {
         })
 }
 
-function getIngredientById() {
-    let id = inputContent.value;
-    fetch("http://localhost:8080/recipes/" + id)
-        .then(response => response.json())
-        .then(json => {
-            createCard(json);
-        })
+async function getIngredientById(id) {
+    let jsonString;
+    return await fetch("http://localhost:8080/ingredients/" + id)
+        .then(response => response.json());
+}
+
+async function getRecipeById(id) {
+    return await fetch("http://localhost:8080/recipes/" + id)
+        .then(response => response.json());
 }
 
 function createCard(data) {
@@ -52,13 +54,16 @@ function createCard(data) {
     newCard.id = data.id;
     newCard.classList.add('fade-in');
     
-    let objectName;
+    let objectName, typeDiv;
     if("recipeName" in data) {
         objectName = data.recipeName;
+        typeDiv = 'recipe';
     }
     if("ingredientName" in data) {
         objectName = data.ingredientName;
+        typeDiv = 'ingredient';
     }
+    newCard.classList.add(typeDiv);
 
     newCard.innerHTML = `
         <div class="menu">
@@ -73,8 +78,72 @@ function createCard(data) {
         <a href="#">Ler mais</a>`;
     
     const cardConfig = newCard.querySelector('.menu');
+    const readMoreButton = newCard.querySelector('a');
+    readMoreButton.onclick = () => {
+        getCardContent(newCard);
+    }
     cardConfig.onclick = () => {
         cardConfig.classList.toggle('active');
     }
     cardsSection.appendChild(newCard);
 }
+
+async function getCardContent(card){
+    let data, objectName;
+
+    if(card.classList.contains('recipe')) {
+        await getRecipeById(card.id)
+        .then(json => {
+            data = json;
+        });
+        objectName = data.recipeName;
+    }
+    if(card.classList.contains('ingredient')){
+        await getIngredientById(card.id)
+        .then(json => {
+            data = json;
+        });
+        objectName = data.ingredientName;
+    }
+    
+    const rightBar = document.getElementById('sidebar-right');
+    const rightBarContent = document.createElement('div');
+
+    rightBarContent.id = 'sidebar-right-content'
+    rightBarContent.classList.add('fade-in');
+
+    rightBar.innerHTML = '';
+    rightBarContent.innerHTML = `
+        <div class="card-info">
+            <img src="./images/${data.icon}-icon.png" alt="">
+            <h1>${objectName}</h1>
+            <p class="card-info-description">${data.description}</p>
+            <p class="card-info-quantity">Quantidade: ${data.quantity}</p>
+        </div>
+
+        <div class="card-info-ingredients">
+            <h2 class="card-info-ingredients-label">Ingredientes:</h2>
+            <li class="ingredients-list">
+            </li>
+        </div>`;
+
+        rightBar.appendChild(rightBarContent);
+        
+        const ingredientsList = document.querySelector('.ingredients-list');
+        const ingredientsListLabel = document.querySelector('.card-info-ingredients-label');
+        if(!card.classList.contains('recipe')){
+            ingredientsList.style.display = 'none';
+            ingredientsListLabel.style.display = 'none';
+        }
+
+        if('ingredients' in data) {
+            data.ingredients.forEach(ingredient => {
+                ingredientsList.innerHTML += `
+                    <ul>
+                        <h3>${ingredient.ingredientName}</h3>
+                        <p>Quantidade: ${ingredient.quantity}</p>
+                    </ul>
+                `;
+            });
+        }
+    }
