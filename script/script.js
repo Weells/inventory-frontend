@@ -1,7 +1,3 @@
-const ingredientsButton = document.getElementById("ingredientsButton");
-const inputContent = document.getElementById("search-input");
-const cardConfig = document.querySelector('.menu');
-
 function getIngredients() {
     fetch("http://localhost:8080/ingredients")
         .then(response => response.json())
@@ -37,7 +33,6 @@ function getRecipes() {
 }
 
 async function getIngredientById(id) {
-    let jsonString;
     return await fetch("http://localhost:8080/ingredients/" + id)
         .then(response => response.json());
 }
@@ -75,21 +70,32 @@ function createCard(data) {
         <h1>${objectName}</h1>
         <p class="card-description overflow">${data.description}</p>
         <p class="card-quantity">Qtd: ${data.quantity}</p>
-        <a href="#">Ler mais</a>`;
+        <a class="card-readmore-button">Ler mais</a>
+        <a class="card-delete-button">Excluir</a>`;
     
     const cardConfig = newCard.querySelector('.menu');
     const readMoreButton = newCard.querySelector('a');
+    const deleteButton = newCard.querySelector('.card-delete-button');
+    cardConfig.onclick = () => {
+        cardConfig.classList.toggle('active');
+        newCard.classList.toggle('dispose-content');
+    }
     readMoreButton.onclick = () => {
         getCardContent(newCard);
     }
-    cardConfig.onclick = () => {
-        cardConfig.classList.toggle('active');
+    deleteButton.onclick = () => {
+        deleteCard(newCard);
     }
     cardsSection.appendChild(newCard);
 }
 
 async function getCardContent(card){
+    const rightBar = document.querySelector('.sidebar-right');
+    const rightBarContent = document.createElement('div');
     let data, objectName;
+
+    rightBarContent.className = 'sidebar-right-content'
+    rightBarContent.classList.add('fade-in');
 
     if(card.classList.contains('recipe')) {
         await getRecipeById(card.id)
@@ -106,27 +112,24 @@ async function getCardContent(card){
         objectName = data.ingredientName;
     }
     
-    const rightBar = document.getElementById('sidebar-right');
-    const rightBarContent = document.createElement('div');
-
-    rightBarContent.id = 'sidebar-right-content'
-    rightBarContent.classList.add('fade-in');
-
-    rightBar.innerHTML = '';
-    rightBarContent.innerHTML = `
-        <div class="card-info">
-            <img src="./images/${data.icon}-icon.png" alt="">
-            <h1>${objectName}</h1>
-            <p class="card-info-description">${data.description}</p>
-            <p class="card-info-quantity">Quantidade: ${data.quantity}</p>
-        </div>
-
-        <div class="card-info-ingredients">
-            <h2 class="card-info-ingredients-label">Ingredientes:</h2>
-            <li class="ingredients-list">
-            </li>
-        </div>`;
-
+    rightBarContent.id = data.id;
+    const oldContent = document.querySelector('.sidebar-right-content');
+    if(!rightBar.contains(oldContent) || data.id != oldContent.id) {
+        rightBar.innerHTML = '';
+        rightBarContent.innerHTML = `
+            <div class="card-info">
+                <img src="./images/${data.icon}-icon.png" alt="">
+                <h1>${objectName}</h1>
+                <p class="card-info-description">${data.description}</p>
+                <p class="card-info-quantity">Quantidade: ${data.quantity}</p>
+            </div>
+    
+            <div class="card-info-ingredients">
+                <h2 class="card-info-ingredients-label">Ingredientes:</h2>
+                <li class="ingredients-list">
+                </li>
+            </div>`;
+    
         rightBar.appendChild(rightBarContent);
         
         const ingredientsList = document.querySelector('.ingredients-list');
@@ -147,3 +150,25 @@ async function getCardContent(card){
             });
         }
     }
+}
+
+async function deleteCard(card) {
+    console.log(card.id);
+    const url = (card.classList.contains('recipe')) ? "http://localhost:8080/recipes/" : "http://localhost:8080/ingredients/";
+    const rightBarContent = document.querySelector('.sidebar-right-content');
+
+    await fetch(url+ card.id, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }})
+    .then(response => {
+        if(response.ok){
+            card.remove();
+            console.log("Item excluído com sucesso!");
+            if(rightBarContent.id === card.id) {
+                rightBarContent.remove();
+            }
+        }
+    })
+}

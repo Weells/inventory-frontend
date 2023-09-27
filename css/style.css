@@ -21,7 +21,7 @@ body {
     background-color: #3C495C;
 }
 
-#sidebar-left {
+.sidebar-left {
     position: relative;
     /* width: 250px; */
     width: 19%;
@@ -226,7 +226,7 @@ body {
     width: 20px;
 } */
 
-#sidebar-right {
+.sidebar-right {
     position: relative;
     display: flex;
     /* width: 250px; */
