@@ -24,6 +24,7 @@
 }
 .card-info h1 {
     font-size: 1rem;
+    align-self: center;
 }
 .card-info-description {
     font-size: 0.9rem;

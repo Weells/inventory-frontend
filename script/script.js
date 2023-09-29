@@ -1,44 +1,95 @@
-function getIngredients() {
-    fetch("http://localhost:8080/ingredients")
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            const cardsSection = document.querySelector('.cards-section');
-            const label = document.querySelector('#main-section-label h1');
-            const labelIcon = document.querySelector('#main-section-label img');
-            cardsSection.innerHTML = "";
-            label.textContent = "Ingredientes";
-            labelIcon.src = "./images/icons8-atom-50.png"
-            data.forEach(element => {
-                createCard(element);
-            });
+document.addEventListener('DOMContentLoaded', this, getCollections());
+
+
+async function getCollections() {
+    await fetch("http://localhost:8080/ingredientsfolders")
+    .then(response => response.json())
+    .then(data => {
+        const collectionsList = document.querySelector('.user-collections');
+        data.forEach(ingredientsFolder => {
+            const collection = document.createElement('li');
+            collection.id = ingredientsFolder.id;
+            collection.classList.add('option');
+            collection.innerHTML = `
+            <a href="#"">
+            <img src="./images/${ingredientsFolder.icon}-light-icon.png" alt="">
+            ${ingredientsFolder.ingredientsFolderName}</a>`;
+            const collectionButton = collection.querySelector('a');
+            collectionButton.onclick = () => getIngredients(collection.id);
+            collectionsList.appendChild(collection);
         })
+    });
+
+    await fetch("http://localhost:8080/recipesfolders")
+    .then(response => response.json())
+    .then(data => {
+        const collectionsList = document.querySelector('.user-collections');
+        data.forEach(recipesFolder => {
+            const collection = document.createElement('li');
+            collection.id = recipesFolder.id;
+            collection.classList.add('option');
+            collection.innerHTML = `
+            <a href="#"">
+            <img src="./images/${recipesFolder.icon}-light-icon.png" alt="" onclick="">
+            ${recipesFolder.recipesFolderName}</a>`;
+            const collectionButton = collection.querySelector('a');
+            collectionButton.onclick = () => getRecipes(collection.id);
+            collectionsList.appendChild(collection);
+        })
+    });
 }
 
-function getRecipes() {
-    fetch("http://localhost:8080/recipes")
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            const cardsSection = document.querySelector('.cards-section');
-            const label = document.querySelector('#main-section-label h1');
-            const labelIcon = document.querySelector('#main-section-label img');
-            cardsSection.innerHTML = "";
-            label.textContent = "Receitas";
-            labelIcon.src = './images/book-icon (1).png';
-            data.forEach(element => {
-                createCard(element);
+function getIngredients(id) {
+    const cardsSection = document.querySelector('.cards-section');
+    const label = document.querySelector('#main-section-label h1');
+    const labelIcon = document.querySelector('#main-section-label img');
+    const rightBar = document.querySelector('.sidebar-right');
+
+    if(!label.id.includes(id)) {
+        fetch("http://localhost:8080/ingredientsfolders/" + id)
+            .then(response => response.json())
+            .then(data => {
+                rightBar.innerHTML = '';
+                cardsSection.innerHTML = "";
+                label.textContent = "Ingredientes";
+                label.id = data.id;
+                labelIcon.src = `./images/${data.icon}-light-icon.png`
+                data.ingredients.forEach(ingredient => {
+                    createCard(ingredient);
+                });
+            })
+    }
+}
+
+function getRecipes(id) {
+    const cardsSection = document.querySelector('.cards-section');
+    const label = document.querySelector('#main-section-label h1');
+    const labelIcon = document.querySelector('#main-section-label img');
+    const rightBar = document.querySelector('.sidebar-right');
+
+    if(!label.id.includes(id)) {
+        fetch("http://localhost:8080/recipesfolders/" + id)
+            .then(response => response.json())
+            .then(data => {
+                rightBar.innerHTML = '';
+                cardsSection.innerHTML = "";
+                label.textContent = "Receitas";
+                label.id = data.id;
+                labelIcon.src = `./images/${data.icon}-light-icon.png`
+                data.recipes.forEach(recipe => {
+                    createCard(recipe);
+                });
             });
-        })
+    }
 }
 
 async function getIngredientById(id) {
-    return await fetch("http://localhost:8080/ingredients/" + id)
+    return fetch("http://localhost:8080/ingredients/" + id)
         .then(response => response.json());
 }
 
 async function getRecipeById(id) {
-    return await fetch("http://localhost:8080/recipes/" + id)
+    return fetch("http://localhost:8080/recipes/" + id)
         .then(response => response.json());
 }
 
@@ -104,7 +155,7 @@ async function getCardContent(card){
         });
         objectName = data.recipeName;
     }
-    if(card.classList.contains('ingredient')){
+    else if(card.classList.contains('ingredient')){
         await getIngredientById(card.id)
         .then(json => {
             data = json;
@@ -114,7 +165,7 @@ async function getCardContent(card){
     
     rightBarContent.id = data.id;
     const oldContent = document.querySelector('.sidebar-right-content');
-    if(!rightBar.contains(oldContent) || data.id != oldContent.id) {
+    if(!rightBar.contains(oldContent) || !data.id.includes(oldContent.id)) {
         rightBar.innerHTML = '';
         rightBarContent.innerHTML = `
             <div class="card-info">
@@ -134,12 +185,15 @@ async function getCardContent(card){
         
         const ingredientsList = document.querySelector('.ingredients-list');
         const ingredientsListLabel = document.querySelector('.card-info-ingredients-label');
-        if(!card.classList.contains('recipe')){
+        if(!card.classList.contains('recipe')) {
             ingredientsList.style.display = 'none';
             ingredientsListLabel.style.display = 'none';
         }
-
-        if('ingredients' in data) {
+        else if(!data.ingredients[0]) {
+            ingredientsList.style.display = 'none';
+            ingredientsListLabel.style.display = 'none';
+        }
+        else if('ingredients' in data) {
             data.ingredients.forEach(ingredient => {
                 ingredientsList.innerHTML += `
                     <ul>
@@ -153,7 +207,6 @@ async function getCardContent(card){
 }
 
 async function deleteCard(card) {
-    console.log(card.id);
     const url = (card.classList.contains('recipe')) ? "http://localhost:8080/recipes/" : "http://localhost:8080/ingredients/";
     const rightBarContent = document.querySelector('.sidebar-right-content');
 
@@ -165,8 +218,7 @@ async function deleteCard(card) {
     .then(response => {
         if(response.ok){
             card.remove();
-            console.log("Item excluído com sucesso!");
-            if(rightBarContent.id === card.id) {
+            if(rightBarContent.id.includes(card.id)) {
                 rightBarContent.remove();
             }
         }

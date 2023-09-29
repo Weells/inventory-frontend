@@ -16,20 +16,24 @@
             <p id="user-name">Username</p>
         </div>
 
-        <p id="menu-label">MINHAS COLEÇÕES</p>
         <nav id="menu">
+            <p id="menu-label">MINHAS COLEÇÕES</p>
             <ul id="menu-ul">
-                <li><a class="recentsButton" href="#" onclick="getRecents()"><img src="./images/icons8-time-50 (1).png" alt="">Recentes</a></li>
+                <li class="menu option"><a class="recentsButton" href="#" onclick="getRecents()"><img src="./images/icons8-time-50 (1).png" alt="">Recentes</a></li>
+                <ul class="user-collections">
+                    <!-- <li><a class="ingredientsButton" href="#" onclick="getIngredients()"><img src="./images/icons8-atom-50.png" alt="">Ingredientes</a></li>
+                    
+                    <li><a class="recipesButton" href="#" onclick="getRecipes()"><img src="./images/book-icon (1).png " alt="">Receitas</a></li> -->
+                </ul>
 
-                <li><a class="ingredientsButton" href="#" onclick="getIngredients()"><img src="./images/icons8-atom-50.png" alt="">Ingredientes</a></li>
-                
-                <li><a class="recipesButton" href="#" onclick="getRecipes()"><img src="./images/book-icon (1).png " alt="">Receitas</a></li>
-
-                <li><a href="#"><img src="./images/icons8-plus-50 (1).png" alt="">Nova coleção</a></li>
-                <li><a href="#"><img src="./images/icons8-gear-50 (1).png" alt="">Configurações</a></li>
-                <li><a href="#"><img src="./images/icons8-exit-50 (1).png" alt="">Sair</a></li>
+                <li class="menu option"><a href="#"><img src="./images/icons8-plus-50 (1).png" alt="">Nova coleção</a></li>
             </ul>
         </nav>
+        
+        <ul class="user-options-list">
+            <li class="user option"><a href="#"><img src="./images/icons8-gear-50 (1).png" alt="">Configurações</a></li>
+            <li class="user option"><a href="#"><img src="./images/icons8-exit-50 (1).png" alt="">Sair</a></li>
+        </ul>
     </aside>
 
     <section id="main-section">
@@ -55,13 +59,12 @@
         <h1 class="cards-section-label"><!-- <img src="./images/icons8-time-50 (1).png" alt="">Recentes --></h1>
 
         <div class="cards-section">
-            <div class="card">
+            <!-- <div class="card">
                 <div class="menu">
                     <span class="bar"></span>
                     <span class="bar"></span>
                     <span class="bar"></span>
                 </div>
-                <!-- <img src="./images/ellipsis-vertical-solid.svg" width="15" height="15" alt="" class="card-config"> -->
                 <img src="./images/paper-icon.png" alt="">
                 <h1>Papel</h1>
                 <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
@@ -85,6 +88,64 @@
                 <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
                 <a href="#">Ler mais</a>
             </div>
+            <div class="card">
+                <div class="menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <img src="./images/paper-icon.png" alt="">
+                <h1>Papel</h1>
+                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
+                <a href="#">Ler mais</a>
+            </div>
+            <div id="651317f207bd6103b24731c7" class="card fade-in recipe">
+                <img src="./images/salad-icon.png" alt="">
+                <h1>Salada</h1>
+                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
+                <a href="#" onclick="getCardContent()">Ler mais</a>
+            </div>
+            <div class="card">
+                <img src="./images/cup-icon.png" alt="">
+                <h1>Caneca</h1>
+                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
+                <a href="#">Ler mais</a>
+            </div>
+            <div class="card">
+                <img src="./images/plastic-icon.png" alt="">
+                <h1 class="card-name">Garrafa</h1>
+                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
+                <a href="#">Ler mais</a>
+            </div>
+            <div class="card">
+                <div class="menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <img src="./images/paper-icon.png" alt="">
+                <h1>Papel</h1>
+                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
+                <a href="#">Ler mais</a>
+            </div>
+            <div id="651317f207bd6103b24731c7" class="card fade-in recipe">
+                <img src="./images/salad-icon.png" alt="">
+                <h1>Salada</h1>
+                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
+                <a href="#" onclick="getCardContent()">Ler mais</a>
+            </div>
+            <div class="card">
+                <img src="./images/cup-icon.png" alt="">
+                <h1>Caneca</h1>
+                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
+                <a href="#">Ler mais</a>
+            </div>
+            <div class="card">
+                <img src="./images/plastic-icon.png" alt="">
+                <h1 class="card-name">Garrafa</h1>
+                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
+                <a href="#">Ler mais</a>
+            </div> -->
         </div>
     </section>
     
