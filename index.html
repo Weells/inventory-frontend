@@ -6,7 +6,8 @@
     <title>Inventory</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/card-style.css">
-    <link rel="stylesheet" href="./css/card-info.css">
+    
+    <link rel="stylesheet" href="./css/create-collection.css"><link rel="stylesheet" href="./css/card-info.css">
 </head>
 <body>
     <aside class="sidebar-left">
@@ -26,7 +27,7 @@
                     <li><a class="recipesButton" href="#" onclick="getRecipes()"><img src="./images/book-icon (1).png " alt="">Receitas</a></li> -->
                 </ul>
 
-                <li class="menu option"><a href="#"><img src="./images/icons8-plus-50 (1).png" alt="">Nova coleção</a></li>
+                <li class="menu option" id="create-collection-button"><a href="#"><img src="./images/icons8-plus-50 (1).png" alt="">Nova coleção</a></li>
             </ul>
         </nav>
         
@@ -51,7 +52,7 @@
                     <input type="text" name="" id="search-input" placeholder="O que está procurando?">
                 </div>
                 <a href="#" id="search-filter" onclick="getIngredientById()">Filtros</a>
-                <a href="#" id="search-edit"><img src="./images/icons8-edit-64.png" alt="" onclick="getRecipes()"></a>
+                <a href="#" id="search-edit"><img src="./images/icons8-edit-64.png" alt=""></a>
             </div>
 
         </div>
@@ -59,122 +60,39 @@
         <h1 class="cards-section-label"><!-- <img src="./images/icons8-time-50 (1).png" alt="">Recentes --></h1>
 
         <div class="cards-section">
-            <!-- <div class="card">
-                <div class="menu">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-                <img src="./images/paper-icon.png" alt="">
-                <h1>Papel</h1>
-                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
-                <a href="#">Ler mais</a>
-            </div>
-            <div id="651317f207bd6103b24731c7" class="card fade-in recipe">
-                <img src="./images/salad-icon.png" alt="">
-                <h1>Salada</h1>
-                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
-                <a href="#" onclick="getCardContent()">Ler mais</a>
-            </div>
-            <div class="card">
-                <img src="./images/cup-icon.png" alt="">
-                <h1>Caneca</h1>
-                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
-                <a href="#">Ler mais</a>
-            </div>
-            <div class="card">
-                <img src="./images/plastic-icon.png" alt="">
-                <h1 class="card-name">Garrafa</h1>
-                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
-                <a href="#">Ler mais</a>
-            </div>
-            <div class="card">
-                <div class="menu">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-                <img src="./images/paper-icon.png" alt="">
-                <h1>Papel</h1>
-                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
-                <a href="#">Ler mais</a>
-            </div>
-            <div id="651317f207bd6103b24731c7" class="card fade-in recipe">
-                <img src="./images/salad-icon.png" alt="">
-                <h1>Salada</h1>
-                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
-                <a href="#" onclick="getCardContent()">Ler mais</a>
-            </div>
-            <div class="card">
-                <img src="./images/cup-icon.png" alt="">
-                <h1>Caneca</h1>
-                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
-                <a href="#">Ler mais</a>
-            </div>
-            <div class="card">
-                <img src="./images/plastic-icon.png" alt="">
-                <h1 class="card-name">Garrafa</h1>
-                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
-                <a href="#">Ler mais</a>
-            </div>
-            <div class="card">
-                <div class="menu">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-                <img src="./images/paper-icon.png" alt="">
-                <h1>Papel</h1>
-                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
-                <a href="#">Ler mais</a>
-            </div>
-            <div id="651317f207bd6103b24731c7" class="card fade-in recipe">
-                <img src="./images/salad-icon.png" alt="">
-                <h1>Salada</h1>
-                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
-                <a href="#" onclick="getCardContent()">Ler mais</a>
-            </div>
-            <div class="card">
-                <img src="./images/cup-icon.png" alt="">
-                <h1>Caneca</h1>
-                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
-                <a href="#">Ler mais</a>
-            </div>
-            <div class="card">
-                <img src="./images/plastic-icon.png" alt="">
-                <h1 class="card-name">Garrafa</h1>
-                <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
-                <a href="#">Ler mais</a>
-            </div> -->
+           
         </div>
     </section>
     
 
     <aside class="sidebar-right">
-        <!-- <div id="sidebar-right-content">
-            <div class="card-info">
-                <img src="./images/bag-icon.png" alt="">
-                <h1>Sacola de presentes</h1>
-                <p class="card-info-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
-                <p class="card-info-quantity">Qtd: 5</p>
+        <div class="sidebar-right-content">
+            
+            <div class="create-collection-content">
+
+                <h1 class="create-collection-label">Novo ingrediente</h1>
+                
+                <label for="icon-select">Ícones</label>
+                <div id="icon-select">
+                    <img src="./images/apple-icon.png" alt="" value="apple">
+                    <img src="./images/atom-icon.png" alt="" value="apple">
+                    <img src="./images/book-icon.png" alt="" value="apple">
+                    <img src="./images/cup-icon.png" alt="" value="apple">
+                    <img src="./images/apple-icon.png" alt="" value="apple">
+                    <img src="./images/atom-icon.png" alt="" value="apple">
+                    <img src="./images/book-icon.png" alt="" value="apple">
+                    <img src="./images/cup-icon.png" alt="" value="apple">
+                    <img src="./images/apple-icon.png" alt="" value="apple">
+                    <img src="./images/atom-icon.png" alt="" value="apple">
+                    <img src="./images/book-icon.png" alt="" value="apple">
+                    <img src="./images/cup-icon.png" alt="" value="apple">
+                </div>
+                <input type="number" name="" id="input-quantity" max="99" value="1">
+                <input type="text" name="" id="input-object-name" maxlength="30" placeholder="Nome">
+                <textarea name="" id="input-object-description" cols="30" rows="10" placeholder="Descrição"></textarea>
+                <button type="submit" id="create-object-button">Criar</button>
             </div>
-
-            <div class="card-info-ingredients">
-                <h2 class="card-info-ingredients-label">Ingredientes:</h2>
-                <li class="ingredients-list">
-                    <ul>
-                        <h3>Papel</h3>
-                        <p>Quantidade: 5</p>
-                    </ul>
-                    <ul>
-                        <h3>Plástico</h3>
-                        <p>Quantidade: 10</p>
-                    </ul>
-                </li>
-            </div>
-
-
-        </div> -->
+        </div>
     </aside>
 
     <footer>Bruno "Weells", 2023.</footer>

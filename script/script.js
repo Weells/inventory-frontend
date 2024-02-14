@@ -1,10 +1,28 @@
-document.addEventListener('DOMContentLoaded', this, getCollections());
+document.addEventListener('DOMContentLoaded', this, getCollectionsList());
+const rightBar = document.querySelector('.sidebar-right');
 
+function getCookieValue(name){
+    const cookies = document.cookie;
+    if(!cookies.includes(name)) return null;
+    if(cookies.includes(";")) {
+        const cookiesList = cookies.split(";");
+        return cookiesList.filter(cookie => cookie.includes(name))[0].replace(" ", "");
+    }
+    return cookies;
+}
 
-async function getCollections() {
-    await fetch("http://localhost:8080/ingredientsfolders")
-    .then(response => response.json())
-    .then(data => {
+async function getCollectionsList() {
+    let token = getCookieValue("token").replace("token=", "");
+    const response1 = await fetch("http://localhost:8080/ingredientsfolders", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    if(response1.ok) {
+        response1.json()
+        .then(data => {
         const collectionsList = document.querySelector('.user-collections');
         data.forEach(ingredientsFolder => {
             const collection = document.createElement('li');
@@ -12,46 +30,63 @@ async function getCollections() {
             collection.classList.add('option');
             collection.innerHTML = `
             <a href="#"">
-            <img src="./images/${ingredientsFolder.icon}-light-icon.png" alt="">
-            ${ingredientsFolder.ingredientsFolderName}</a>`;
+            <img src="./images/${ingredientsFolder.folder_icon}-light-icon.png" alt="">
+            ${ingredientsFolder.folder_name}</a>`;
             const collectionButton = collection.querySelector('a');
-            collectionButton.onclick = () => getIngredients(collection.id);
+            collectionButton.onclick = () => getIngredientsByFolderId(collection.id);
             collectionsList.appendChild(collection);
-        })
+            })
+        });
+    };
+    
+    const response2 = await fetch("http://localhost:8080/recipesfolders", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
     });
-
-    await fetch("http://localhost:8080/recipesfolders")
-    .then(response => response.json())
-    .then(data => {
-        const collectionsList = document.querySelector('.user-collections');
-        data.forEach(recipesFolder => {
-            const collection = document.createElement('li');
-            collection.id = recipesFolder.id;
-            collection.classList.add('option');
-            collection.innerHTML = `
-            <a href="#"">
-            <img src="./images/${recipesFolder.icon}-light-icon.png" alt="" onclick="">
-            ${recipesFolder.recipesFolderName}</a>`;
-            const collectionButton = collection.querySelector('a');
-            collectionButton.onclick = () => getRecipes(collection.id);
-            collectionsList.appendChild(collection);
-        })
-    });
+    if(response2.ok){
+        response2.json()
+        .then(data => {
+            const collectionsList = document.querySelector('.user-collections');
+            data.forEach(recipesFolder => {
+                const collection = document.createElement('li');
+                collection.id = recipesFolder.id;
+                collection.classList.add('option');
+                collection.innerHTML = `
+                <a href="#"">
+                <img src="./images/${recipesFolder.folder_icon}-light-icon.png" alt="" onclick="">
+                ${recipesFolder.folder_name}</a>`;
+                const collectionButton = collection.querySelector('a');
+                collectionButton.onclick = () => getRecipesByFolderId(collection.id);
+                collectionsList.appendChild(collection);
+            })
+        });
+    }
 }
 
-function getIngredients(id) {
+function getIngredientsByFolderId(id) {
     const cardsSection = document.querySelector('.cards-section');
     const label = document.querySelector('#main-section-label h1');
     const labelIcon = document.querySelector('#main-section-label img');
     const rightBar = document.querySelector('.sidebar-right');
 
     if(!label.id.includes(id)) {
-        fetch("http://localhost:8080/ingredientsfolders/" + id)
+        let token = getCookieValue("token").replace("token=", "");
+        fetch("http://localhost:8080/ingredientsfolders/" + id, {
+            credentials: 'include',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then(response => response.json())
             .then(data => {
                 rightBar.innerHTML = '';
                 cardsSection.innerHTML = "";
-                label.textContent = "Ingredientes";
+                label.textContent = data.ingredientsFolderName;
                 label.id = data.id;
                 labelIcon.src = `./images/${data.icon}-light-icon.png`
                 data.ingredients.forEach(ingredient => {
@@ -61,19 +96,52 @@ function getIngredients(id) {
     }
 }
 
-function getRecipes(id) {
+function getIngredients() {
+    const cardsSection = document.querySelector('.cards-section');
+    const label = document.querySelector('#main-section-label h1');
+    const labelIcon = document.querySelector('#main-section-label img');
+    const rightBar = document.querySelector('.sidebar-right');
+
+    fetch("http://localhost:8080/ingredients")
+    .then(response => response.json())
+    .then(data => {
+        rightBar.innerHTML = '';
+        cardsSection.innerHTML = "";
+        label.textContent = data.folder_name;
+        label.id = data.id;
+        labelIcon.src = `./images/${data.icon}-light-icon.png`
+        data.forEach(ingredient => {
+            createCard(ingredient);
+        });
+    })
+}
+
+async function getIngredientById(id) {
+    return fetch("http://localhost:8080/ingredients/" + id)
+        .then(response => response.json());
+}
+
+function getRecipesByFolderId(id) {
     const cardsSection = document.querySelector('.cards-section');
     const label = document.querySelector('#main-section-label h1');
     const labelIcon = document.querySelector('#main-section-label img');
     const rightBar = document.querySelector('.sidebar-right');
 
     if(!label.id.includes(id)) {
-        fetch("http://localhost:8080/recipesfolders/" + id)
+        let token = getCookieValue("token").replace("token=", "");
+        fetch("http://localhost:8080/recipesfolders/" + id, {
+            credentials: 'include',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': `token=${token}`
+            }
+        })
             .then(response => response.json())
             .then(data => {
                 rightBar.innerHTML = '';
                 cardsSection.innerHTML = "";
-                label.textContent = "Receitas";
+                label.textContent = data.folder_name;
                 label.id = data.id;
                 labelIcon.src = `./images/${data.icon}-light-icon.png`
                 data.recipes.forEach(recipe => {
@@ -83,9 +151,24 @@ function getRecipes(id) {
     }
 }
 
-async function getIngredientById(id) {
-    return fetch("http://localhost:8080/ingredients/" + id)
-        .then(response => response.json());
+function getRecipes() {
+    const cardsSection = document.querySelector('.cards-section');
+    const label = document.querySelector('#main-section-label h1');
+    const labelIcon = document.querySelector('#main-section-label img');
+    const rightBar = document.querySelector('.sidebar-right');
+
+    fetch("http://localhost:8080/recipes")
+    .then(response => response.json())
+    .then(data => {
+        rightBar.innerHTML = '';
+        cardsSection.innerHTML = "";
+        label.textContent = 'Receitas';
+        label.id = data.id;
+        labelIcon.src = `./images/book-light-icon.png`
+        data.forEach(recipe => {
+            createCard(recipe);
+        });
+    })
 }
 
 async function getRecipeById(id) {
@@ -224,3 +307,62 @@ async function deleteCard(card) {
         }
     })
 }
+
+const createCollectionButton = document.getElementById('create-collection-button');
+createCollectionButton.addEventListener('click', () => {
+    
+    const rightBarContent = document.createElement('div');
+    rightBarContent.id = 'sidebar-create-collection';
+    rightBarContent.className = 'sidebar-right-content';
+    rightBarContent.classList.add('fade-in');
+    
+    rightBar.innerHTML = '';
+    rightBarContent.innerHTML = `
+        <h1 class="create-collection-label">Nova coleção</h1>
+        <select name="" id="select-list">
+            <option value="apple">apple</option>
+            <option value="apple">atom</option>
+        </select>
+        <input type="text" name="" id="input-object-name" maxlength="30">
+        <button type="submit" id="create-object-button">Criar</button>
+    `;
+    
+    rightBar.appendChild(rightBarContent);
+
+    const createButton = document.getElementById('create-object-button');
+    const select = document.getElementById('select-list');
+    const inputObjectName = document.getElementById('input-object-name');
+    
+    createButton.onclick = () => {
+        // console.log(`${select.options[select.selectedIndex].innerText}, ${inputObjectName}`);
+        const selectOption = select.options[select.selectedIndex].innerText;
+        const data = {
+            "ingredientsFolderName": `${inputObjectName.value}`,
+            "icon": `${selectOption}`,
+            "ingredients": [],
+        }
+        
+        if(selectOption && inputObjectName){
+        }
+        fetch("http://localhost:8080/ingredientsfolders", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => {
+            if(response.ok){
+                console.log("Item criado!");
+                const collectionsList = document.querySelector('.user-collections');
+                collectionsList.innerHTML = '';
+                getCollectionsList();
+                rightBar.innerHTML = '';
+            }
+            else {
+                console.log("Erro ao criar item...");
+            }
+        });
+    };
+
+});
