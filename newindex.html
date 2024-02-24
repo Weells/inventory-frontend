@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eBeaver Inventory</title>
+    <link rel="stylesheet" href="./css/newindex.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div id="menu-bar">
+        <div id="logo">
+            <h1><span>e</span>beaver</h1>
+        </div>
+        <nav id="menu-bar-middle-options">
+            <a href="">Minhas coleções</a>
+            <a href="">Informações</a>
+        </nav>
+        <nav id="menu-bar-right-options">
+            <a href="" style="display: flex; align-items: center; gap: 10px;"><img src="" alt="" style="width: 25px; height: 25px; background-color: bisque; border-radius: 50%;">Username</a>
+            <a href=""><img src="./images/icons8-gear-50 (1).png" alt="" srcset=""></a>
+        </nav>
+    </div>
+
+    <div id="collections-box">
+        <label for="#collections-section" class="section-label">Minhas coleções</label>
+        <section id="collections-section">
+            <div id="collections-list">
+                <div id="search-input-section">
+                    <label for="search-input"><i class='bx bx-search' style="color: white;"></i></label>
+                    <input type="text" name="" id="search-input" placeholder="Buscar uma coleção" onclick="input.blur()">
+                </div>
+                <ul>
+                    <a href="" class="selected"><span></span>Receitas</a>
+                    <a href="" class=""><span></span>Ingredientes</a>
+                    <a href=""><span></span>Salgados</a>
+                    <a href="" class="selected"><span></span>Salgados</a>
+                    <a href=""><span></span>Salgados</a>
+                </ul>
+            </div>
+            <div id="collection-content">
+                <div id="collection-header">
+                    <p id="collection-title">Receitas</p>
+                    <div id="collection-header-buttons">
+                        <button class="cursor-pointer"><img src="./images/icon-plus-solid.svg" alt="" srcset=""></button>
+                        <button class="cursor-pointer"><img src="./images/icon-edit.svg" alt="" srcset=""></button>
+                        <button class="cursor-pointer"><img src="./images/icon-delete.svg" alt="" srcset=""></button>
+                    </div>
+                </div>
+                
+                <div id="collection-classes">
+                    <span class="collection-class-purple">Jogos</span>
+                    <span class="collection-class-blue">Culinária</span>
+                    <span class="collection-class-green">Estudos</span>
+                    <span class="collection-class-orange">Frutas</span>
+                </div>
+                
+                <!-- mudar pra classe!! -->
+                <div id="collection-items">
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        © 2024 Bruno Weells. Todos os direitos reservados.
+    </footer>
+</body>
+</html>
