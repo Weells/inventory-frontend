@@ -1,102 +1,159 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory</title>
+    <title>eBeaver Inventory</title>
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/card-style.css">
-    
-    <link rel="stylesheet" href="./css/create-collection.css"><link rel="stylesheet" href="./css/card-info.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0" />
 </head>
 <body>
-    <aside class="sidebar-left">
-
-        <div id="user-section">
-            <div id="user-profile-picture"></div>
-            <p id="user-name">Username</p>
+    <div id="menu-bar">
+        <div id="logo">
+            <h1><span>e</span>beaver</h1>
         </div>
-
-        <nav id="menu">
-            <p id="menu-label">MINHAS COLEÇÕES</p>
-            <ul id="menu-ul">
-                <li class="menu option"><a class="recentsButton" href="#" onclick="getRecents()"><img src="./images/icons8-time-50 (1).png" alt="">Recentes</a></li>
-                <ul class="user-collections">
-                    <!-- <li><a class="ingredientsButton" href="#" onclick="getIngredients()"><img src="./images/icons8-atom-50.png" alt="">Ingredientes</a></li>
-                    
-                    <li><a class="recipesButton" href="#" onclick="getRecipes()"><img src="./images/book-icon (1).png " alt="">Receitas</a></li> -->
-                </ul>
-
-                <li class="menu option" id="create-collection-button"><a href="#"><img src="./images/icons8-plus-50 (1).png" alt="">Nova coleção</a></li>
-            </ul>
+        <div class="cursor-pointer" id="menu-button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="menu-bar-middle-options">
+            <a href="">Minhas coleções</a>
+            <a href="">Informações</a>
         </nav>
-        
-        <ul class="user-options-list">
-            <li class="user option"><a href="#"><img src="./images/icons8-gear-50 (1).png" alt="">Configurações</a></li>
-            <li class="user option"><a href="#"><img src="./images/icons8-exit-50 (1).png" alt="">Sair</a></li>
-        </ul>
-    </aside>
+        <nav id="menu-bar-right-options">
+            <a href="" style="display: flex; align-items: center; gap: 10px;"><span style="width: 25px; height: 25px; background-color: bisque; border-radius: 50%;"></span>Username</a>
+            <a href=""><span class="material-symbols-outlined">settings</span></a>
+        </nav>
+    </div>
 
-    <section id="main-section">
-
-        <div id="search-section">
-            <div id="main-section-label">
-                <img src="./images/icons8-time-50 (1).png">
-                <h1>Recentes</h1>
-            </div>
-
-            <div id="search-bar-content">
-                
-                <div id="search-bar">
-                    <img src="./images/icons8-magnifying-glass-30.png" alt="">
-                    <input type="text" name="" id="search-input" placeholder="O que está procurando?">
+    <div id="collections-box">
+        <label for="#collections-section" class="section-label">Minhas coleções</label>
+        <section id="collections-section">
+            <div id="collections-list">
+                <div id="search-input-section">
+                    <label for="search-input"><span class="material-symbols-outlined">search</span></label>
+                    <input type="text" name="" id="search-input" placeholder="Buscar uma coleção" onclick="input.blur()">
                 </div>
-                <a href="#" id="search-filter" onclick="getIngredientById()">Filtros</a>
-                <a href="#" id="search-edit"><img src="./images/icons8-edit-64.png" alt=""></a>
+                <ul id="collection-ul">
+                    <a class="collection-read-content" onclick="collectionRead(this)"><span></span>Receitas</a>
+                    <a class="collection-read-content" onclick="collectionRead(this)"><span></span>Ingredientes</a>
+                    <a class="collection-read-content" onclick="collectionRead(this)"><span></span>Pasta de Salgados</a>
+                    <a class="collection-read-content" onclick="collectionRead(this)"><span></span>Salgados</a>
+                    <a class="collection-read-content" onclick="collectionRead(this)"><span></span>Salgados</a>
+                </ul>
             </div>
 
-        </div>
-
-        <h1 class="cards-section-label"><!-- <img src="./images/icons8-time-50 (1).png" alt="">Recentes --></h1>
-
-        <div class="cards-section">
-           
-        </div>
-    </section>
-    
-
-    <aside class="sidebar-right">
-        <div class="sidebar-right-content">
-            
-            <div class="create-collection-content">
-
-                <h1 class="create-collection-label">Novo ingrediente</h1>
-                
-                <label for="icon-select">Ícones</label>
-                <div id="icon-select">
-                    <img src="./images/apple-icon.png" alt="" value="apple">
-                    <img src="./images/atom-icon.png" alt="" value="apple">
-                    <img src="./images/book-icon.png" alt="" value="apple">
-                    <img src="./images/cup-icon.png" alt="" value="apple">
-                    <img src="./images/apple-icon.png" alt="" value="apple">
-                    <img src="./images/atom-icon.png" alt="" value="apple">
-                    <img src="./images/book-icon.png" alt="" value="apple">
-                    <img src="./images/cup-icon.png" alt="" value="apple">
-                    <img src="./images/apple-icon.png" alt="" value="apple">
-                    <img src="./images/atom-icon.png" alt="" value="apple">
-                    <img src="./images/book-icon.png" alt="" value="apple">
-                    <img src="./images/cup-icon.png" alt="" value="apple">
+            <div id="collection-content">
+                <div id="collection-header">
+                    <p id="collection-title">Coleção teste <span class="material-symbols-outlined">arrow_forward_ios</span> Criar item</p>
+                    <div id="collection-header-buttons">
+                        <!-- <button class="cursor-pointer"><img src="./images/icon-plus-solid.svg" alt="" srcset=""></button> -->
+                        <button class="cursor-pointer"><span class="material-symbols-outlined">add_circle</span></button>
+                        <!-- <button class="cursor-pointer"><img src="./images/icon-edit.svg" alt="" srcset=""></button> -->
+                        <button class="cursor-pointer"><span class="material-symbols-outlined">edit_square</span></button>
+                        <!-- <button class="cursor-pointer"><img src="./images/icon-delete.svg" alt="" srcset=""></button> -->
+                        <button class="cursor-pointer"><span class="material-symbols-outlined">delete</span></button>
+                    </div>
                 </div>
-                <input type="number" name="" id="input-quantity" max="99" value="1">
-                <input type="text" name="" id="input-object-name" maxlength="30" placeholder="Nome">
-                <textarea name="" id="input-object-description" cols="30" rows="10" placeholder="Descrição"></textarea>
-                <button type="submit" id="create-object-button">Criar</button>
+                
+                <!-- <div id="collection-classes">
+                    <span class="collection-class-purple">Jogos</span>
+                    <span class="collection-class-blue">Culinária</span>
+                    <span class="collection-class-green">Estudos</span>
+                    <span class="collection-class-orange">Frutas</span>
+                    <span class="collection-class-orange">Bibliotecas</span>
+                    <span class="collection-class-purple">Códigos da Faculdade</span>
+
+                </div> -->
+                
+                <!-- mudar pra classe!! -->
+                <div id="collection-items" class="scroll-x">
+                    <!-- <div class="card">
+                        <span class="material-symbols-outlined">library_music</span>
+                        <h1>Álbum do Mateus</h1>
+                        <p class="card-quantity">Qtd: 5</p>
+                        <p class="card-description overflow">Só se fala disso em Xique-Xique  Bahia!</p>
+                        <a onclick="getCardContent()">Ler mais</a>
+                    </div>
+                    <div class="card">
+                        <span class="material-symbols-outlined">laptop_chromebook</span>
+                        <h1>Livro</h1>
+                        <p class="card-quantity">Qtd: 124</p>
+                        <p class="card-description overflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sagittis ut eros eget aliquet. Ut cursus ullamcorper nulla vitae interdum.</p>
+                        <a onclick="getCardContent()">Ler mais</a>
+                    </div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div> -->
+                    <div id="create-item-section">
+                        <div id="item-form">
+
+                            <label for="item-icon-form">ícone</label>
+                            <ul id="item-icon-form" class="overflow-scrollbar">
+                                <li><span class="material-symbols-outlined">coffee</span></li>
+                                <li><span class="material-symbols-outlined">phone</span></li>
+                                <li><span class="material-symbols-outlined">folder_open</span></li>
+                                <li><span class="material-symbols-outlined">money</span></li>
+                                <li><span class="material-symbols-outlined">library_music</span></li>
+                                <li><span class="material-symbols-outlined">lunch_dining</span></li>
+                                <li><span class="material-symbols-outlined">cake</span></li>
+                                <li><span class="material-symbols-outlined">restaurant_menu</span></li>
+                                <li><span class="material-symbols-outlined">phone_iphone</span></li>
+                                <li><span class="material-symbols-outlined">stadia_controller</span></li>
+                                <li><span class="material-symbols-outlined">terminal</span></li>
+                                <li><span class="material-symbols-outlined">local_mall</span></li>
+
+                            </ul>
+
+                            <div id="item-form-div">
+                                <div id="name-input-div">
+                                    <label for="create-item-input-name">Nome</label>
+                                    <input type="text" name="item-input-name" id="create-item-input-name" maxlength="40">
+                                </div>
+                                <div id="quantity-input-div">
+                                    <label for="create-item-input-qty">Quantidade</label>
+                                    <div id="quantity-input">
+                                        <button id="quantity-input-decrement"><span class="material-symbols-outlined">chevron_left</span></button>
+                                        <input type="number" name="item-input-qty" id="create-item-input-qty" value="1" min="0">
+                                        <button id="quantity-input-increment"><span class="material-symbols-outlined">navigate_next</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <label for="create-item-input-desc">Descrição</label>
+                            <textarea name="item-input-desc" id="create-item-input-desc" cols="30" rows="10"></textarea>
+                            <button type="submit">Criar</button>
+                        </div>
+
+                        <div id="item-components">
+                            <label for="item-form-components">Feito a partir de:</label>
+                            <ul id="item-form-components" class="overflow-scrollbar">
+                                <li><span class="material-symbols-outlined">coffee</span> Café</li>
+                                <li><span class="material-symbols-outlined">money</span> Dinheiro</li>
+                                <li><span class="material-symbols-outlined">folder_open</span> Arquivos</li>
+                                <li><span class="material-symbols-outlined">phone</span> Chamadas</li>
+                                <li><span class="material-symbols-outlined">house</span> Lar</li>
+                                <li><span class="material-symbols-outlined">coffee</span> Café</li>
+                                <li><span class="material-symbols-outlined">money</span> Dinheiro</li>
+                                <li><span class="material-symbols-outlined">folder_open</span> Arquivos</li>
+                                <li><span class="material-symbols-outlined">phone</span> Chamadas</li>
+                                <li><span class="material-symbols-outlined">house</span> Lar</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </aside>
+        </section>
+    </div>
 
-    <footer>Bruno "Weells", 2023.</footer>
+    <footer>
+        © 2024 Bruno Weells. Todos os direitos reservados.
+    </footer>
 
+    <script src="/script/test.js"></script>
     <script src="./script/script.js"></script>
 </body>
 </html>
